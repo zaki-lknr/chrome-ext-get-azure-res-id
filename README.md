@@ -1,0 +1,1 @@
+# chrome-ext-get-azure-res-id
