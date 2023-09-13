@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "buri azure",
+    "version": "0.0.1",
+    "description": "get Azure Resource Id from Azure-Portal",
+    "icons": {
+        "128": "icons/buri.png"
+    },
+    "permissions": [
+        "contextMenus",
+        "clipboardWrite",
+        "tabs"
+    ],
+    "background": {
+        "service_worker": "buri.js",
+        "type": "module"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*/*"
+            ],
+            "js": [
+                "buri-copy.js"
+            ]
+        }
+    ]
+}
