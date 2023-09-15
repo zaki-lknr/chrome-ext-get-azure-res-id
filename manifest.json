@@ -7,22 +7,25 @@
         "128": "icons/buri.png"
     },
     "permissions": [
-        "contextMenus",
+        "declarativeContent",
         "clipboardWrite",
         "tabs"
     ],
     "background": {
-        "service_worker": "buri.js",
-        "type": "module"
+        "service_worker": "buri.js"
+    },
+    "action": {
+        "default_popup": "buri-popup.html"
     },
     "content_scripts": [
         {
             "matches": [
-                "https://*/*"
+                "https://portal.azure.com/*"
             ],
             "js": [
                 "buri-copy.js"
-            ]
+            ],
+            "run_at": "document_end"
         }
     ]
 }
