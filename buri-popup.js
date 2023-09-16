@@ -1,14 +1,21 @@
-function sample_function() {
-    console.log("sample function");
-    let param = this.param;
-    chrome.tabs.query( {active: true, currentWindow: true}, function(tabs) {
-        // chrome.tabs.sendMessage(tabs[0].id, param);
-    });
-}
+// function sample_function() {
+//     console.log("sample function");
+//     let param = this.param;
+//     chrome.tabs.query( {active: true, currentWindow: true}, function(tabs) {
+//         // chrome.tabs.sendMessage(tabs[0].id, param);
+//         // chrome.tabs.sendMessage(tabs[0].id, tabs[0].url, function(response) {
+//         //     console.log("sample_func: " + response);
+//         //     // alert(response.id)
+//         //     navigator.clipboard.writeText(response.id);
+//         //     // Uncaught (in promise) DOMException: Document is not focused.
+//         // });
 
-// formのonlick()でなくスクリプト側からリスナーを設定する
-// https://teratail.com/questions/116400
-document.getElementById('sample_id').addEventListener('click', {handleEvent: sample_function, param: "aiueo"});
+//     });
+// }
+
+// // formのonlick()でなくスクリプト側からリスナーを設定する
+// // https://teratail.com/questions/116400
+// document.getElementById('sample_id').addEventListener('click', {handleEvent: sample_function, param: "aiueo"});
 
 // window.onload = function() {
 //     // console.log("lonload");
@@ -33,11 +40,11 @@ window.addEventListener('load',()=>{
     // alert("aaaaa")
     // console.log("bbbb")
 
-    chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, tabs => {
+    chrome.tabs.query({'active': true, 'currentWindow': true}, tabs => {
         chrome.tabs.sendMessage(tabs[0].id, tabs[0].url, function(response) {
             console.log(response);
             // alert(response.id)
-            // navigator.clipboard.writeText(response.id);
+            navigator.clipboard.writeText(response.id);
             // こっちでも同じエラー
             // Uncaught (in promise) DOMException: Document is not focused.
         });
