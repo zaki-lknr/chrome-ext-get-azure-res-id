@@ -34,10 +34,10 @@ chrome.tabs.onActivated.addListener(function(info){
     console.log("onactivated")
     chrome.tabs.get(info.tabId,function(tab){
         if (tab.url.match(target)) {
-            chrome.contextMenus.create(createProperties);
+            chrome.contextMenus.create(createProperties, () => chrome.runtime.lastError);
         }
         else {
-            chrome.contextMenus.remove("buri azure");
+            chrome.contextMenus.remove("buri azure", () => chrome.runtime.lastError);
             // chrome.contextMenus.update("buri azure", null); // NG
             // chrome.contextMenus.removeAll();  // まぁ動く (が、createはどうしようもない)
         }
@@ -48,10 +48,10 @@ chrome.tabs.onUpdated.addListener(function(id,info,tab){
     console.log("onupdate")
     if(tab.active){
         if (tab.url.match(target)) {
-            chrome.contextMenus.create(createProperties);
+            chrome.contextMenus.create(createProperties, () => chrome.runtime.lastError);
         }
         else {
-            chrome.contextMenus.remove("buri azure");
+            chrome.contextMenus.remove("buri azure", () => chrome.runtime.lastError);
         }
     }
 });
@@ -60,10 +60,10 @@ chrome.windows.onFocusChanged.addListener(function(info){
     // ウインドウ切替によるアクティブページの変化
     chrome.tabs.query({'active': true, 'currentWindow': true}, tabs => {
         if (tabs[0].url.match(target)) {
-            chrome.contextMenus.create(createProperties);
+            chrome.contextMenus.create(createProperties, () => chrome.runtime.lastError);
         }
         else {
-            chrome.contextMenus.remove("buri azure");
+            chrome.contextMenus.remove("buri azure", () => chrome.runtime.lastError);
         }
     });
 });
