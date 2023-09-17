@@ -1,9 +1,13 @@
 var createProperties = {
     id: "buri azure",
     title: 'Get Azure Resource ID',
-    contexts: ["all"]
+    contexts: ["all"],
+    // documentUrlPatterns: [ '*://portal.azure.com/*', '*://*.portal.azure.net/*' ]  // これはフレームのURLなども厳密に見るのでNG(Azure Portalはフレーム使ってる)
+    // documentUrlPatterns: [ 'https://github.com/*' ]
+    //enabled: true,
 };
-var target = /github.com/
+//var target = /github.com/
+var target = /portal.azure.com/
 
 // chrome.contextMenus.create({
 //     "id": "buri azure", 
@@ -34,6 +38,8 @@ chrome.tabs.onActivated.addListener(function(info){
         }
         else {
             chrome.contextMenus.remove("buri azure");
+            // chrome.contextMenus.update("buri azure", null); // NG
+            // chrome.contextMenus.removeAll();  // まぁ動く (が、createはどうしようもない)
         }
     });
 });
@@ -67,7 +73,7 @@ chrome.windows.onFocusChanged.addListener(function(info){
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
     // console.log("add listener");
     let current_url = tab.url;
-    chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, tabs => {
+    chrome.tabs.query({'active': true, 'currentWindow': true}, tabs => {
         chrome.tabs.sendMessage(tab.id, tab.url, function(response) {
             console.log(response);
         });
