@@ -49,6 +49,19 @@ chrome.tabs.onUpdated.addListener(function(id,info,tab){
         }
     }
 });
+
+chrome.windows.onFocusChanged.addListener(function(info){
+    // ウインドウ切替によるアクティブページの変化
+    chrome.tabs.query({'active': true, 'currentWindow': true}, tabs => {
+        if (tabs[0].url.match(target)) {
+            chrome.contextMenus.create(createProperties);
+        }
+        else {
+            chrome.contextMenus.remove("buri azure");
+        }
+    });
+});
+
 // 非Azureが続くとduplicateになる
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
