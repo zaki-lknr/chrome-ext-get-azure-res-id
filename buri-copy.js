@@ -6,7 +6,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     console.log(resource_id);
     navigator.clipboard.writeText(resource_id);
 
-    // sendResponse({
-    //     value: request,
-    // });
+    sendResponse({
+        value: request,
+        id: resource_id
+    });
+    // responseは返さないとエラーが出る
+    // Unchecked runtime.lastError: The message port closed before a response was received.
 });
