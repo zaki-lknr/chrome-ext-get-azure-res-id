@@ -3,6 +3,7 @@ var createProperties = {
     title: 'Get Azure Resource ID',
     contexts: ["all"]
 };
+var target = /github.com/
 
 // chrome.contextMenus.create({
 //     "id": "buri azure", 
@@ -16,7 +17,7 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 // // 一応動くがどのサイトでも有効
 // chrome.tabs.onCreated.addListener(function(tab) {
-//     if (tab.url.match(/portal.azure.com/)) {
+//     if (tab.url.match(target)) {
 //         chrome.contextMenus.create(createProperties);
 //     }
 //     else {
@@ -24,44 +25,38 @@ chrome.runtime.onInstalled.addListener(() => {
 //     }
 // });
 
-// chrome.tabs.onActiveChanged.addListener(function(id,info){
-//     chrome.tabs.get(id,function(tab){
-//         if (tab.url.match(/portal.azure.com/)) {
-//             chrome.contextMenus.create(createProperties);
-//         }
-//         else {
-//             chrome.contextMenus.remove("buri azure");
-//         }
-//     });
-// });
-// chrome.tabs.onActivated.addListener(function(info){
-//     chrome.tabs.get(info.tabId,function(tab){
-//         if (tab.url.match(/portal.azure.com/)) {
-//             chrome.contextMenus.create(createProperties);
-//         }
-//         else {
-//             chrome.contextMenus.remove("buri azure");
-//         }
-//     });
-// });
-// chrome.tabs.onUpdated.addListener(function(id,info,tab){
-//     if(tab.active){
-//         if (tab.url.match(/portal.azure.com/)) {
-//             chrome.contextMenus.create(createProperties);
-//         }
-//         else {
-//             chrome.contextMenus.remove("buri azure");
-//         }
-//     }
-// });
-// // 非Azureが続くとduplicateになる
+chrome.tabs.onActivated.addListener(function(info){
+    // 同一ウインドウでタブ切替たときに機能する
+    console.log("onactivated")
+    chrome.tabs.get(info.tabId,function(tab){
+        if (tab.url.match(target)) {
+            chrome.contextMenus.create(createProperties);
+        }
+        else {
+            chrome.contextMenus.remove("buri azure");
+        }
+    });
+});
+chrome.tabs.onUpdated.addListener(function(id,info,tab){
+    // 同一タブでページ遷移した際に機能する
+    console.log("onupdate")
+    if(tab.active){
+        if (tab.url.match(target)) {
+            chrome.contextMenus.create(createProperties);
+        }
+        else {
+            chrome.contextMenus.remove("buri azure");
+        }
+    }
+});
+// 非Azureが続くとduplicateになる
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
     // console.log("add listener");
     let current_url = tab.url;
     chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, tabs => {
         chrome.tabs.sendMessage(tab.id, tab.url, function(response) {
-            // console.log(response);
+            console.log(response);
         });
     });
 });
