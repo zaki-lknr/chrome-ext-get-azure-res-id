@@ -47,6 +47,7 @@ window.addEventListener('load',()=>{
             navigator.clipboard.writeText(response.id);
             // こっちでも同じエラー
             // Uncaught (in promise) DOMException: Document is not focused.
+            document.getElementById('resource_id').value = response.id
         });
     });
 });
