@@ -1,6 +1,7 @@
 function press_copy_button() {
     console.log("sample function");
     resource_id = document.getElementById('resource_id').value;
+    // alert(resource_id);
     navigator.clipboard.writeText(resource_id);
 }
 
@@ -38,7 +39,9 @@ window.addEventListener('load',()=>{
             navigator.clipboard.writeText(response.id);
             // こっちでも同じエラー
             // Uncaught (in promise) DOMException: Document is not focused.
-            document.getElementById('resource_id').value = response.id
+            document.getElementById('resource_id').value = response.id;
+            // document.getElementById("copy").focus();
+            // document.getElementById('copy').click();
         });
     });
 });
