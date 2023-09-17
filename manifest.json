@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "buri azure",
+    "name": "buri",
     "version": "0.0.1",
-    "description": "get Azure Resource Id from Azure-Portal",
+    "description": "bring U Azure Resource Id from Azure-Portal website",
     "icons": {
         "128": "icons/buri.png"
     },
