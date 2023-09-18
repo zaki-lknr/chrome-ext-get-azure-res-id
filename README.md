@@ -1,4 +1,4 @@
-# buri : bring u resource id
+# buri : bring U resource id
 
 ブラウザで開いているAzureリソースのリソースIDをワンクリック(は無理なので2クリック)でクリップボードにコピーする拡張。  
 
@@ -6,3 +6,6 @@
 
 言い出しっぺ  
 <https://twitter.com/nnstt1/status/1701894190442160165>
+
+ストアで公開している拡張  
+<https://chrome.google.com/webstore/detail/buri/ionijgpgofbfhaeangcngpfcoabidejj?hl=ja>
